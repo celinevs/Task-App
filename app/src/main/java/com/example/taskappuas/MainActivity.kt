@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,27 +28,19 @@ class MainActivity : AppCompatActivity() {
                 val response = RetrofitClient.instance.getTasks()
                 val urgentTasks = response.urgent_tasks
 
-                // Log category counts
-                val categoryItems = response.task_counts.mapNotNull { (category, count) ->
-                    try {
-                        CategoryItem(category, count)
-                    }
-                    catch (e: Exception) {
-                        Log.e("DateParseError", "Failed to parse date for task: ${category}")
-                        null
-                    }
-                }
+                // Map the categories to be displayed
+                val categoryMap = response.task_counts.mapKeys { it.key.capitalize() }
+                val orderedCategoryItems = listOf("Regular", "Urgent", "Important", "Done")
+                    .mapNotNull { category -> categoryMap[category]?.let { count -> CategoryItem(category, count) } }
 
-                // Convert to CardItems with safe date parsing
+                // Convert urgent tasks to CardItems
                 val cardItems = urgentTasks.mapNotNull { task ->
                     try {
                         CardItem(
                             title = task.title,
                             desc = task.description,
-                            dateUpdated = SimpleDateFormat(
-                                "yyyy-MM-dd",
-                                Locale.getDefault()
-                            ).parse(task.dateUpdated) ?: Date()
+                            dateUpdated = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                .parse(task.dateUpdated) ?: Date()
                         )
                     } catch (e: Exception) {
                         Log.e("DateParseError", "Failed to parse date for task: ${task.title}")
@@ -64,13 +55,41 @@ class MainActivity : AppCompatActivity() {
                     recyclerView.adapter = CardAdapter(this@MainActivity, cardItems)
 
                     val recyclerView2 = findViewById<RecyclerView>(R.id.rvCategories)
-                    recyclerView2.layoutManager = LinearLayoutManager(this@MainActivity)
-                    recyclerView2.adapter = CategoryAdapter(this@MainActivity, categoryItems)
+                    recyclerView2.layoutManager = GridLayoutManager(this@MainActivity, 2)
+                    recyclerView2.adapter = CategoryAdapter(this@MainActivity, orderedCategoryItems)
                 }
 
             } catch (e: Exception) {
                 Log.e("APIError", "Error: ${e.message}")
             }
         }
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+            bottomNav.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.nav_home -> {
+                        // Stay here
+                        true
+                    }
+                    R.id.nav_add -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.mainLayout, SubmitFragment())
+                            .addToBackStack(null)
+                            .commit()
+                        true
+                    }
+                    R.id.nav_list -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.mainLayout, ListFragment())
+                            .addToBackStack(null)
+                            .commit()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
         }
     }
+
+
