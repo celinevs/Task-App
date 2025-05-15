@@ -1,10 +1,13 @@
 package com.example.taskappuas
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -51,11 +54,11 @@ class MainActivity : AppCompatActivity() {
                 // Update UI on Main thread
                 withContext(Dispatchers.Main) {
                     val recyclerView = findViewById<RecyclerView>(R.id.rvUrgentTasks)
-                    recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    recyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
                     recyclerView.adapter = CardAdapter(this@MainActivity, cardItems)
 
                     val recyclerView2 = findViewById<RecyclerView>(R.id.rvCategories)
-                    recyclerView2.layoutManager = GridLayoutManager(this@MainActivity, 2)
+                    recyclerView2.layoutManager = GridLayoutManager(this@MainActivity, 3)
                     recyclerView2.adapter = CategoryAdapter(this@MainActivity, orderedCategoryItems)
                 }
 
@@ -65,24 +68,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
-            bottomNav.setOnItemSelectedListener { item ->
+        bottomNav.setOnItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.nav_home -> {
+                    R.id.home -> {
                         // Stay here
                         true
                     }
-                    R.id.nav_add -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.mainLayout, SubmitFragment())
-                            .addToBackStack(null)
-                            .commit()
+                    R.id.add -> {
+                        startActivity(Intent(this@MainActivity, FormTask::class.java))
                         true
                     }
-                    R.id.nav_list -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.mainLayout, ListFragment())
-                            .addToBackStack(null)
-                            .commit()
+                    R.id.task -> {
+                        startActivity(Intent(this@MainActivity, TaskList::class.java))
                         true
                     }
                     else -> false
@@ -91,5 +88,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
 
 

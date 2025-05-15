@@ -23,6 +23,12 @@ class CategoryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.category_button, parent, false)
+        val displayMetrics = parent.context.resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val itemWidth = (screenWidth / 3) - (2 * 8) // 8dp margin
+
+        view.layoutParams.width = itemWidth
+
         return CategoryViewHolder(view)
     }
 
@@ -31,26 +37,26 @@ class CategoryAdapter(
         holder.category.text = item.category.replaceFirstChar { it.uppercaseChar() }
         holder.count.text = "Tasks: ${item.count}"
 
-        // Set background color based on category
-        val backgroundColor = when (item.category.lowercase()) {
-            "regular" -> 0xFFFFA726.toInt() // Orange
-            "urgent" -> 0xFFEF5350.toInt()  // Red
-            "important" -> 0xFFFFEB3B.toInt() // Yellow
-            "done" -> 0xFFE3F2FD.toInt()    // White-blue
-            else -> 0xFF90CAF9.toInt()      // Default Blue
-        }
+//        // Set background color based on category
+//        val backgroundColor = when (item.category.lowercase()) {
+//            "regular" -> 0xFFFFA726.toInt() // Orange
+//            "urgent" -> 0xFFEF5350.toInt()  // Red
+//            "important" -> 0xFFFFEB3B.toInt() // Yellow
+//            "done" -> 0xFFE3F2FD.toInt()    // White-blue
+//            else -> 0xFF90CAF9.toInt()      // Default Blue
+//        }
 
-        val drawable = holder.itemView.background.mutate()
-        (drawable as GradientDrawable).setColor(backgroundColor)
-        holder.itemView.background = drawable
+//        val drawable = holder.itemView.background.mutate()
+//        (drawable as GradientDrawable).setColor(backgroundColor)
+//        holder.itemView.background = drawable
 
-        // Highlight urgent tasks with red stripe
-        val leftStripe: View = holder.itemView.findViewById(R.id.leftStripe)
-        if (item.category.lowercase() == "urgent") {
-            leftStripe.setBackgroundColor(0xFFFF0000.toInt()) // Red
-        } else {
-            leftStripe.setBackgroundColor(0x00000000) // Transparent
-        }
+//        // Highlight urgent tasks with red stripe
+//        val leftStripe: View = holder.itemView.findViewById(R.id.leftStripe)
+//        if (item.category.lowercase() == "urgent") {
+//            leftStripe.setBackgroundColor(0xFFFF0000.toInt()) // Red
+//        } else {
+//            leftStripe.setBackgroundColor(0x00000000) // Transparent
+//        }
     }
 
     override fun getItemCount(): Int = items.size
