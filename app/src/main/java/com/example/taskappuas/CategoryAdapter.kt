@@ -12,12 +12,18 @@ import android.graphics.drawable.GradientDrawable
 
 class CategoryAdapter(
     private val context: Context,
-    private var items: List<CategoryItem>
+    private var items: List<CategoryItem>,
+    private val onCategoryClick: (String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val category: TextView = itemView.findViewById(R.id.categoryName)
         val count: TextView = itemView.findViewById(R.id.categoryCount)
+        init {
+            itemView.setOnClickListener {
+                onCategoryClick(items[adapterPosition].category)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {

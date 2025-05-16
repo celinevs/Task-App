@@ -6,7 +6,8 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
     <!-- TOP HEADER WITH LARGER TEXT -->
     <LinearLayout
@@ -136,8 +137,9 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#07378a"
-        app:itemIconTint="@color/white"
+        android:background="#1E3A8A"
+        app:elevation="8dp"
+        app:itemIconTint="@drawable/bottom_nav_colors"
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

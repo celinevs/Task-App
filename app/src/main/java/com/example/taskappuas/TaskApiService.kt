@@ -16,9 +16,6 @@ interface TaskApiService {
         @Query("status") status: String? = null
     ):TaskListResponse
 
-    // Get single task by ID
-    @GET("api/tasks/{id}")
-    suspend fun getTaskById(@Path("id") id: Int): Task
 
     // Create new task
     @POST("api/tasks")

@@ -11,13 +11,25 @@ import java.util.Locale
 
 class CardAdapter(
     private val context: Context,
-    private val items: List<CardItem>
+    private val items: List<CardItem>,
+    private val tasks: List<Task>, // Add this parameter to receive actual Task objects
+    private val onItemClick: (Task) -> Unit
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
     inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView= itemView.findViewById(R.id.taskTitle)
+        val title: TextView = itemView.findViewById(R.id.taskTitle)
         val desc: TextView = itemView.findViewById(R.id.taskDescription)
         val date: TextView = itemView.findViewById(R.id.taskDate)
+
+        fun bind(cardItem: CardItem, task: Task) {
+            title.text = cardItem.title
+            desc.text = cardItem.desc
+            date.text = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(cardItem.dateUpdated)
+
+            itemView.setOnClickListener {
+                onItemClick(task)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -27,13 +39,7 @@ class CardAdapter(
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        val item = items[position]
-        holder.title.text = item.title
-        holder.desc.text = item.desc
-
-        // Format the date
-        val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-        holder.date.text = dateFormat.format(item.dateUpdated)
+        holder.bind(items[position], tasks[position])
     }
 
     override fun getItemCount(): Int = items.size
