@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".TaskDetailActivity">
+
+<!-- Material Header -->
+<com.google.android.material.appbar.MaterialToolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#1E3A8A"
+    app:title="Task Details"
+    app:titleTextColor="@android:color/white"
+    app:navigationIcon="@drawable/ic_arrow_back"
+    app:navigationContentDescription="@string/back_button"
+    app:elevation="4dp"/>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Priority Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <View
+                android:id="@+id/viewPriorityIndicator"
+                android:layout_width="4dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="12dp"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Task Details Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type: "
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+                    <TextView
+                        android:id="@+id/tvType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status: "
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last update: "
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+                    <TextView
+                        android:id="@+id/tvDueDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?android:attr/listDivider"/>
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnEdit"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:text="Edit"
+                android:textColor="#039BE5"
+                app:iconTint="#039BE5"
+                app:strokeColor="#039BE5"
+                app:strokeWidth="1dp"/>
+
+            <Button
+                android:id="@+id/btnDelete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:text="Delete"
+                android:textColor="#E53935"
+                app:iconTint="#E53935"
+                app:strokeColor="#E53935"
+                app:strokeWidth="1dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".FormTask">
+<!-- Material Header -->
+<com.google.android.material.appbar.MaterialToolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#1E3A8A"
+    app:title="Task Add"
+    app:titleTextColor="@android:color/white"
+    app:navigationIcon="@drawable/ic_arrow_back"
+    app:navigationContentDescription="@string/back_button"
+    app:elevation="4dp"/>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Task Title"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter task title"
+            android:inputType="textCapWords"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Task Type"
+            android:layout_marginBottom="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:id="@+id/rbRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Regular"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rbUrgent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Urgent"/>
+
+            <RadioButton
+                android:id="@+id/rbImportant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Important"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Enter task description"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#07378a"
+                android:layout_marginEnd="6dp"
+                android:text="Submit Task"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#AA248B"
+                android:text="Cancel"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
